@@ -10,7 +10,6 @@ Artifacts are cached in the /home/ubuntu/.cache by default.
 Paths can be relative to the working directory or absolute.
 You can now use this to cache any directory, not just the ones in the workspace.
 
-
 See the [v1 README.md](https://github.com/corca-ai/local-cache/blob/v1/README.md) for older updates.
 
 ## Usage
