@@ -1,13 +1,15 @@
 # Local Cache action
 
+This is a fork of (https://github.com/corca-ai/local-cache) with updates an improvements.
+
 This action allows caching dependencies and build outputs to improve workflow execution time on self hosted machine.
 Artifacts are cached in the /home/ubuntu/.cache by default.
 
 ## What's New
 
-### v2
+Paths can be relative to the working directory or absolute.
+You can now use this to cache any directory, not just the ones in the workspace.
 
-- Caches that have not been accessed over 7 days are cleaned up automatically at post action stage by clean-key.
 
 See the [v1 README.md](https://github.com/corca-ai/local-cache/blob/v1/README.md) for older updates.
 
