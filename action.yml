@@ -1,8 +1,8 @@
-name: 'Local Cache on Self-hosted Runner'
+name: 'Self-hosted Runner Local Cache'
 description: 'Cache dependencies and build outputs to improve workflow execution time on self hosted machine'
 inputs:
   path:
-    description: 'A directory to save and restore cache.'
+    description: 'A directory to save and restore cache. This can be relative to the current folder or absolute.'
     required: true
   key:
     description: 'An explicit key for a cache.'
