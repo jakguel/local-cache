@@ -72,9 +72,10 @@ function run() {
         try {
             const key = core.getInput('key');
             const base = core.getInput('base');
-            const path = core.getInput('path');
             const cacheBase = (0, cache_1.getCacheBase)(base);
             const cachePath = (0, cache_1.getCachePath)(key, base);
+            let path = core.getInput('path');
+            path = path.startsWith('/') ? path : `./${path}`;
             (0, cache_1.checkKey)(key);
             (0, cache_1.checkPaths)([path]);
             core.saveState('key', key);
@@ -87,7 +88,7 @@ function run() {
             core.saveState('cache-hit', String(cacheHit));
             core.setOutput('cache-hit', String(cacheHit));
             if (cacheHit === true) {
-                const ln = yield (0, cache_1.exec)(`ln -s ${p.join(cachePath, path.split('/').slice(-1)[0])} ./${path}`);
+                const ln = yield (0, cache_1.exec)(`ln -s ${p.join(cachePath, path.split('/').slice(-1)[0])} ${path}`);
                 core.debug(ln.stdout);
                 if (ln.stderr)
                     core.error(ln.stderr);
