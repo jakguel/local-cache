@@ -7,10 +7,11 @@ import {
   getCacheBase,
   getCachePath
 } from '../utils/cache'
+import {isArray} from 'util'
 
 async function run(): Promise<void> {
   try {
-    /* 
+    /*
       clean up caches
     */
     const cacheBase = core.getState('cache-base')
@@ -29,9 +30,11 @@ async function run(): Promise<void> {
   try {
     const key = core.getInput('key')
     const base = core.getInput('base')
-    const path = core.getInput('path')
     const cacheBase = getCacheBase(base)
     const cachePath = getCachePath(key, base)
+
+    let path = core.getInput('path')
+    path = path.startsWith('/') ? path : `./${path}`
 
     checkKey(key)
     checkPaths([path])
@@ -51,7 +54,7 @@ async function run(): Promise<void> {
 
     if (cacheHit === true) {
       const ln = await exec(
-        `ln -s ${p.join(cachePath, path.split('/').slice(-1)[0])} ./${path}`
+        `ln -s ${p.join(cachePath, path.split('/').slice(-1)[0])} ${path}`
       )
 
       core.debug(ln.stdout)
