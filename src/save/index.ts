@@ -8,10 +8,12 @@ async function run(): Promise<void> {
 
     if (cacheHit === 'false') {
       const cachePath = core.getState('cache-path')
-      const path = core.getState('path')
-
+      let path = core.getState('path')
+      if (!path.startsWith('/')) {
+        path = `./${path}`
+      }
       await exec(`mkdir -p ${cachePath}`)
-      const mv = await exec(`mv ./${path} ${cachePath}`)
+      const mv = await exec(`mv ${path} ${cachePath}`)
 
       core.debug(mv.stdout)
       if (mv.stderr) core.error(mv.stderr)
@@ -20,7 +22,6 @@ async function run(): Promise<void> {
       core.info(`Cache hit on the key ${key}`)
       core.info(`,not saving cache`)
     }
-
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
